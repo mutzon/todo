@@ -3,7 +3,8 @@ import { StyleSheet} from "react-native";
 export const s = StyleSheet.create({
     app:{
         flex: 1,
-        backgroundColor: "#f9f9f9"
+        backgroundColor: "#f9f9f9",
+        padding: 15
 
     },
     header: {flex: 1},
