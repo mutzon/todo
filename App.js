@@ -4,6 +4,7 @@ import { s } from "./App.style";
 import { Header } from "./components/Header/Header";
 import { CardTodo } from "./components/CardTodo/CardTodo";
 import { useState } from "react";
+import { TapBottonMenu } from "./components/TabBottonMenu/TabBottonMenu";
 
 // const TODO_LIST=[
 //   {id: 1, title: "walk the dog", isCompleted: true},
@@ -24,6 +25,8 @@ export default function App() {
     { id: 9, title: "Learn react Native", isCompleted: false },
   ]);
 
+  const [selectedTabName, setSelectedtabName] = useState("done");
+
   function renderTodoList() {
     return todoList.map((todo) => (
       <View key={todo.id} style={s.cardItem}>
@@ -34,30 +37,12 @@ export default function App() {
 
   function updateTodo(todo) {
     const updatedTodo = { ...todo, isCompleted: !todo.isCompleted };
-    console.log(" todo.title " + todo.isCompleted);
-    console.log(" todo.title " + todo.title);
-
-    console.log("updatedTodo.isCompleted linje 36 " + updatedTodo.isCompleted);
-    console.log("updatedTodo.title linje 36 " + updatedTodo.title);
-
     const updatedTodoList = [...todoList];
-    console.log("updatedTodoList.length linje 41 " + updatedTodoList.length);
-
     const indexToUpdate = updatedTodoList.findIndex(
       (t) => t.id === updatedTodo.id
     );
-    console.log("indexToUpdate  " + indexToUpdate);
-
     updatedTodoList[indexToUpdate] = updatedTodo;
-
-    console.log(
-      "updatedTodoList[indexToUpdate]  " +
-        updatedTodoList[indexToUpdate].isCompleted
-    );
-
     setTodoList(updatedTodoList);
-
-    console.log("updatedetodo.title linje " + updatedTodo.title);
   }
 
   return (
@@ -74,7 +59,10 @@ export default function App() {
         </SafeAreaView>
       </SafeAreaProvider>
       <View style={s.footer}>
-        <Text>Footer</Text>
+        <TapBottonMenu
+          onPress={setSelectedtabName}
+          selectedTabName={selectedTabName}
+        ></TapBottonMenu>
       </View>
     </>
   );
