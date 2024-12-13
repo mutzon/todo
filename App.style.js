@@ -7,9 +7,10 @@ export const s = StyleSheet.create({
         padding: 15
 
     },
+    cardItem:{marginBottom: 10},
     header: {flex: 1},
     body: {flex: 5},
-    footer:{height: 70}
+    footer:{backgroundColor: "white", height: 70}
 
 
 
