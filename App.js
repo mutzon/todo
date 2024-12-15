@@ -3,22 +3,62 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { s } from "./App.style";
 import { Header } from "./components/Header/Header";
 import { CardTodo } from "./components/CardTodo/CardTodo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TabBottomMenu } from "./components/TabBottomMenu/TabBottomMenu";
 import { ButtonAdd } from "./components/ButtonAdd/ButtonAdd";
 import Dialog from "react-native-dialog";
 import uuid from "react-native-uuid";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+let isFirstrender = true;
+let isLoadUpdate = false;
 
 export default function App() {
+  const [todoList, setTodoList] = useState([]);
   const [selectedTabName, setSelectedTabName] = useState("all");
   const [isAdddDialogDisplayed, setIsAdddDialogDisplayed] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const [todoList, setTodoList] = useState([
-    { id: 1, title: "Gå med hunden", isCompleted: true },
-    { id: 2, title: "Go to the dentist", isCompleted: false },
-    { id: 3, title: "Learn React Native", isCompleted: false },
-  ]);
+  useEffect(() => {
+    loadTodoList();
+  }, []);
+
+  useEffect(() => {
+    if (!isLoadUpdate) {
+      if (!isFirstrender) {
+        saveTodoList();
+      } else {
+        isFirstrender = false;
+      }
+    } else {
+      isLoadUpdate = false;
+    }
+  }, [todoList]);
+
+  async function loadTodoList() {
+    console.log("LOAD");
+    try {
+      const todoListString = await AsyncStorage.getItem(
+        "kan skrive hvad ´jeg vil @todolist"
+      );
+      const parsedTodoList = JSON.parse(todoListString);
+      isLoadUpdate = true;
+      setTodoList(parsedTodoList || []);
+    } catch (err) {
+      alert(err);
+    }
+  }
+
+  async function saveTodoList() {
+    console.log("SAVE");
+    try {
+      await AsyncStorage.setItem(
+        "kan skrive hvad ´jeg vil @todolist",
+        JSON.stringify(todoList)
+      );
+    } catch (err) {
+      alert(err);
+    }
+  }
 
   function getFilteredList() {
     switch (selectedTabName) {
