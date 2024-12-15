@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const s = StyleSheet.create({
   btn: {
     position: "absolute",
-    bottom: 140,
+    bottom: 120,
     right: 20,
     backgroundColor: "#C2DAFF",
     paddingVertical: 15,
