@@ -1,12 +1,8 @@
-import { Image, Text } from "react-native"
-import {s} from "./Header.style"
-import logoImg from "../../assets/logo.png"
+import { Image, Text, View } from 'react-native';
 
-export function Header(){
-    return <>
-    <Image style = {s.img} source= {logoImg} resizeMode="contain"></Image>
-    <Text style = {s.subTitle}>you probably have someting to do</Text>
-    
-    </>
-
+export function Header(p) {
+    return <View>
+        <Image source={require("../../assets/logo.png")} style={{ width: 170 }} resizeMode="contain" />
+        <Text style={{ marginTop: -20, color: "#ABABAB", fontSize: 20 }}>Tu as probablement des trucs à faire</Text>
+    </View>
 }
