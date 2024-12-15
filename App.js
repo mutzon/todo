@@ -5,6 +5,8 @@ import { Header } from "./components/Header/Header";
 import { CardTodo } from "./components/CardTodo/CardTodo";
 import { useState } from "react";
 import { TabBottomMenu } from "./components/TabBottomMenu/TabBottomMenu";
+import { ButtonAdd } from "./components/ButtonAdd/ButtonAdd";
+import Dialog from "react-native-dialog";
 
 export default function App() {
   const [todoList, setTodoList] = useState([
@@ -65,6 +67,8 @@ export default function App() {
     setTodoList(updatedTodoList);
   }
 
+  function showAddTodoDialog() {}
+
   return (
     <>
       <SafeAreaProvider>
@@ -75,6 +79,7 @@ export default function App() {
           <View style={s.body}>
             <ScrollView>{renderTodoList()}</ScrollView>
           </View>
+          <ButtonAdd onPress={showAddTodoDialog}></ButtonAdd>
         </SafeAreaView>
       </SafeAreaProvider>
       <View style={s.footer}>
@@ -84,6 +89,14 @@ export default function App() {
           selectedTabName={selectedTabName}
         />
       </View>
+      <Dialog.Container visible={true}>
+        <Dialog.Title>Account delete</Dialog.Title>
+        <Dialog.Description>
+          Do you want to delete this account? You cannot undo this action.
+        </Dialog.Description>
+        <Dialog.Button label="Cancel" />
+        <Dialog.Button label="Delete" />
+      </Dialog.Container>
     </>
   );
 }
